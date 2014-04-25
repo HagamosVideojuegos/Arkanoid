@@ -12,13 +12,8 @@ public class BallMove : MonoBehaviour {
 	void Awake () {
 		thisRigidbody = rigidbody2D; //Caching the rigidbody2D
 		thisAudio = audio;
-
+	
 		thisRigidbody.velocity = Vector2.up*speed; //Velocity of the ball
-	}
-
-	void FixedUpdate()
-	{
-		thisRigidbody.velocity += Vector2.one*Time.deltaTime; //Increment the velocity
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
@@ -32,8 +27,9 @@ public class BallMove : MonoBehaviour {
 		case "Block": //Sound of explosion of the block
 			thisAudio.PlayOneShot(explosion);
 			break;
-		default: //Sound of bounce
+		default: //Sound of bounce and increment the veolcity
 			thisAudio.PlayOneShot(pong);
+			thisRigidbody.velocity = thisRigidbody.velocity*1.05f;
 			break;
 		}
 	}
